@@ -24,5 +24,5 @@
         pilihanLayanan.addEventListener('change', kalkulasi);
         inputBerat.addEventListener('input', kalkulasi);
     </script>
-</body>
-</html>
+
+
