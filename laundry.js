@@ -1,5 +1,4 @@
-  <!-- Script Kalkulator -->
-    <script>
+  <!-- Script Kalkulator ->
         const pilihanLayanan = document.getElementById('pilihanLayanan');
         const inputBerat = document.getElementById('inputBerat');
         const labelInput = document.getElementById('labelInput');
@@ -23,6 +22,6 @@
 
         pilihanLayanan.addEventListener('change', kalkulasi);
         inputBerat.addEventListener('input', kalkulasi);
-    </script>
+  
 
 
