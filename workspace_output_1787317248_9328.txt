@@ -1,0 +1,13 @@
+
+> armuzna-laundry@1.0.0 build
+> vite build
+
+vite v5.4.21 building for production...
+transforming...
+✓ 40 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   0.70 kB │ gzip:  0.43 kB
+dist/assets/index-CDunbMCT.css   14.14 kB │ gzip:  3.34 kB
+dist/assets/index-CDbn6jm5.js   154.70 kB │ gzip: 49.15 kB
+✓ built in 1.33s
