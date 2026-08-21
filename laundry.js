@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', () => {
     const pilihanLayanan = document.getElementById('pilihanLayanan');
     const inputBerat = document.getElementById('inputBerat');
     const labelInput = document.getElementById('labelInput');
@@ -10,20 +10,18 @@ document.addEventListener('DOMContentLoaded', function () {
         const tipe = selectedOption.getAttribute('data-type');
         const jumlah = parseInt(inputBerat.value) || 0;
 
-        if (tipe === 'kilo') {
-            labelInput.innerText = 'Perkiraan Berat (kg)';
-        } else {
-            labelInput.innerText = 'Jumlah Barang (pcs/set/meter)';
-        }
-
+        // Ubah teks label berdasarkan tipe layanan
+        labelInput.innerText = tipe === 'kilo' ? 'Perkiraan Berat (kg)' : 'Jumlah Barang (pcs/set)';
+        
+        // Hitung total
         const total = harga * jumlah;
         hasilHitung.innerText = 'Rp ' + total.toLocaleString('id-ID');
     }
 
-    // Jalankan kalkulasi saat ada perubahan pada pilihan atau input angka
+    // Event Listener untuk memicu kalkulasi
     pilihanLayanan.addEventListener('change', kalkulasi);
     inputBerat.addEventListener('input', kalkulasi);
 
-    // Jalankan sekali di awal agar nilai default langsung terhitung
+    // Jalankan sekali saat halaman dimuat
     kalkulasi();
 });
