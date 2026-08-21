@@ -1,27 +1,55 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const pilihanLayanan = document.getElementById('pilihanLayanan');
-    const inputBerat = document.getElementById('inputBerat');
-    const labelInput = document.getElementById('labelInput');
-    const hasilHitung = document.getElementById('hasilHitung');
+<script>
+(function () {
+    function initLaundryCalculator() {
+        const layanan = document.getElementById('pilihanLayanan');
+        const jumlah = document.getElementById('inputBerat');
+        const label = document.getElementById('labelInput');
+        const hasil = document.getElementById('hasilHitung');
 
-    function kalkulasi() {
-        const selectedOption = pilihanLayanan.options[pilihanLayanan.selectedIndex];
-        const harga = parseInt(selectedOption.value) || 0;
-        const tipe = selectedOption.getAttribute('data-type');
-        const jumlah = parseInt(inputBerat.value) || 0;
+        if (!layanan || !jumlah || !label || !hasil) {
+            console.error('Kalkulator laundry: elemen tidak lengkap.');
+            return;
+        }
 
-        // Ubah teks label berdasarkan tipe layanan
-        labelInput.innerText = tipe === 'kilo' ? 'Perkiraan Berat (kg)' : 'Jumlah Barang (pcs/set)';
-        
-        // Hitung total
-        const total = harga * jumlah;
-        hasilHitung.innerText = 'Rp ' + total.toLocaleString('id-ID');
+        function rupiah(nilai) {
+            return 'Rp ' + Math.round(nilai).toLocaleString('id-ID');
+        }
+
+        function hitung() {
+            const option = layanan.options[layanan.selectedIndex];
+            const harga = parseFloat(option.value) || 0;
+            const tipe = option.getAttribute('data-type') || 'unit';
+            let nilai = parseFloat(jumlah.value);
+
+            if (!Number.isFinite(nilai) || nilai < 0) nilai = 0;
+
+            if (tipe === 'kilo') {
+                label.textContent = 'Perkiraan Berat (kg)';
+                jumlah.step = '0.1';
+                jumlah.min = '0.1';
+            } else {
+                label.textContent = 'Jumlah Barang (pcs/set)';
+                jumlah.step = '1';
+                jumlah.min = '1';
+                if (nilai > 0) nilai = Math.floor(nilai);
+            }
+
+            hasil.textContent = rupiah(harga * nilai);
+        }
+
+        layanan.addEventListener('change', hitung);
+        jumlah.addEventListener('input', hitung);
+        jumlah.addEventListener('change', hitung);
+        hitung();
     }
 
-    // Event Listener untuk memicu kalkulasi
-    pilihanLayanan.addEventListener('change', kalkulasi);
-    inputBerat.addEventListener('input', kalkulasi);
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initLaundryCalculator);
+    } else {
+        initLaundryCalculator();
+    }
+})();
+</script>
 
-    // Jalankan sekali saat halaman dimuat
-    kalkulasi();
-});
+</body>
+</html>
